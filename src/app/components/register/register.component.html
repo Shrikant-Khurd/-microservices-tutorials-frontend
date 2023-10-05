@@ -1,0 +1,182 @@
+<!-- <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <input type="text" name="name" formControlName="name"><br>
+    <div class="error alert alert-danger"
+        *ngIf="registerForm.controls['name'].hasError('required') && registerForm.controls['name'].touched">Name is
+        required</div>
+    <div class="error alert alert-danger"
+        *ngIf="registerForm.controls['name'].hasError('minlength') && registerForm.controls['name'].touched">Min length
+        must be 3</div>
+    <input type="text" name="email" formControlName="email"> <br>
+    <input type="password" name="password" formControlName="password"><br>
+    <input type="submit" value="Register" [disabled]="!registerForm.valid">
+</form> -->
+
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+                        <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+                            <!-- <div>
+                                <select id="sort-by" class="form-select " style="margin: 5px;" formControlName="roles">
+                                    <option selected disabled hidden>Select Role</option>
+                                    <option  *ngFor="let role of userRoles" [value]="role.id">  {{role.roleName}}</option>
+                                </select>
+                            </div> -->
+
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" formControlName="firstName"
+                                    placeholder="Shrikant" [ngClass]="{'alert-error': registerForm.controls['firstName'].hasError('required')  && registerForm.controls['firstName'].touched} ">
+                                <label for="floatingInput">First Name</label>
+                              
+                                <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['firstName'].hasError('required') && registerForm.controls['firstName'].touched">
+                                    First Name is required</p>
+                                <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['firstName'].hasError('minlength') && registerForm.controls['firstName'].touched">
+                                    Min length must be 3</p> -->
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" formControlName="lastName"
+                                    placeholder="Khurd" >
+                                <label for="floatingInput">Last Name</label>
+                                <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['lastName'].hasError('required') && registerForm.controls['lastName'].touched">
+                                    last Name is required</p>
+                                <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['lastName'].hasError('minlength') && registerForm.controls['lastName'].touched">
+                                    Min length must be 3</p> -->
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="floatingInput"
+                                    formControlName="contactNumber" placeholder="9874563210">
+                                <label for="floatingInput">Contact Number</label>
+                                <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['contactNumber'].hasError('required') && registerForm.controls['contactNumber'].touched">
+                                    last Name is required</p>
+                                <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['contactNumber'].hasError('minlength') && registerForm.controls['contactNumber'].touched">
+                                    Min length must be 3</p> -->
+                            </div>
+
+
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingInput" formControlName="email"
+                                    placeholder="name@example.com">
+                                <label for="floatingInput">Email address</label>
+                                <p class="error " style="color: red;"
+                                    *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched">
+                                    Email is required</p>
+                                <!-- <p class="error " style="color: red;"
+                                    *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched">
+                                    Enter a valid email address!</p> -->
+
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingPassword"
+                                    formControlName="password" placeholder="Password" required>
+                                <label for="floatingPassword">Password</label>
+                                <p class="error " style="color: red;"
+                                    *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched">
+                                    Password is required</p>
+                                <!-- <p class="error " style="color: red;"
+                                    *ngIf="registerForm.controls['password'].hasError('pattern') && registerForm.controls['password'].touched">
+                                    Must contain at least 1 Special Character!</p> -->
+                                <!-- <div *ngIf="registerForm.controls['password'].hasError('pattern')">
+                                    User name not valid.
+                               </div>  -->
+                            </div>
+
+
+                            <h5 class="card-title text-center mb-2 fw-light fs-5">Address</h5>
+                            <div formGroupName="addresses">
+                                <!-- <div *ngFor="let addressGroup of addresses; let i = index" [formGroupName]="i">
+                                <h5>Address</h5> -->
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" formControlName="street"
+                                        placeholder="Shrikant">
+                                    <label for="floatingInput">Street</label>
+                                    <!-- <p class="error" style="color: red;"
+                                        *ngIf="registerForm.controls['street'].hasError('required') && registerForm.controls['street'].touched">
+                                        street is required</p> -->
+
+                                    <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['firstName'].hasError('minlength') && registerForm.controls['firstName'].touched">
+                                    Min length must be 3</p> -->
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" formControlName="city"
+                                        placeholder="Khurd">
+                                    <label for="floatingInput">City</label>
+                                    <!-- <p class="error" style="color: red;"
+                                        *ngIf="registerForm.controls['city'].hasError('required') && registerForm.controls['city'].touched">
+                                        city is required</p> -->
+                                    <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['lastName'].hasError('minlength') && registerForm.controls['lastName'].touched">
+                                    Min length must be 3</p> -->
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" formControlName="state"
+                                        placeholder="Shrikant">
+                                    <label for="floatingInput">State</label>
+                                    <!-- <p class="error" style="color: red;"
+                                        *ngIf="registerForm.controls['state'].hasError('required') && registerForm.controls['state'].touched">
+                                        state is required</p> -->
+                                    <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['firstName'].hasError('minlength') && registerForm.controls['firstName'].touched">
+                                    Min length must be 3</p> -->
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" formControlName="country"
+                                        placeholder="Khurd">
+                                    <label for="floatingInput">Country</label>
+                                    <!-- <p class="error" style="color: red;"
+                                        *ngIf="registerForm.controls['country'].hasError('required') && registerForm.controls['country'].touched">
+                                        country is required</p> -->
+                                    <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['lastName'].hasError('minlength') && registerForm.controls['lastName'].touched">
+                                    Min length must be 3</p> -->
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="floatingInput"
+                                        formControlName="zipCode" placeholder="Khurd">
+                                    <label for="floatingInput">ZipCode</label>
+                                    <!-- <p class="error" style="color: red;"
+                                        *ngIf="registerForm.controls['zipCode'].hasError('required') && registerForm.controls['zipCode'].touched">
+                                        zipCode is required</p> -->
+                                    <!-- <p class="error" style="color: red;"
+                                    *ngIf="registerForm.controls['lastName'].hasError('minlength') && registerForm.controls['lastName'].touched">
+                                    Min length must be 3</p> -->
+                                </div>
+                            </div>
+                            <!-- </div> -->
+
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                                    [disabled]="!registerForm.valid">Sign
+                                    in</button>
+                            </div>
+                            <br>
+                            <div class="text-center w-100">
+                                <p class="text-muted font-weight-bold">Already Registered? <a href="login"
+                                        class="text-primary ml-2">Login</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

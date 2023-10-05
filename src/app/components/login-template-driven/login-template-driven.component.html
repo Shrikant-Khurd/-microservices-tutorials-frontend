@@ -1,0 +1,68 @@
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <br>
+    {{user| json}}
+    <br>
+    <input type="text" name="emailOrContactNumber" placeholder="Enter email" [(ngModel)]="user.emailOrContactNumber" required
+        #userName="ngModel"> <br>
+    <div [hidden]="userName.valid || userName.pristine" class="alert alert-danger">
+        Name is required
+    </div>
+    <input type="password" name="password" placeholder="Enter password" [(ngModel)]="user.password" required
+        #password="ngModel"> <br>
+    <div [hidden]="password.valid || password.touched" class="alert alert-danger">
+        Password is required
+    </div>
+    <input type="submit" value="Login" [disabled]="!loginForm.form.valid">
+</form>
+
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Log in</h5>
+                        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingInput" name="email"
+                                    placeholder="name@example.com or 9876543210" [(ngModel)]="user.emailOrContactNumber" required
+                                    #email="ngModel">
+                                <label for="floatingInput">Email address or Contact Number</label>
+                                <div [hidden]="userName.valid || userName.pristine" class="alert alert-danger">
+                                    Email is required
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingPassword" name="paswword"
+                                    placeholder="Password" [(ngModel)]="user.password" required #password="ngModel">
+                                <label for="floatingPassword">Password</label>
+                                <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                                    Password is required
+                                </div>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                                <label class="form-check-label" for="rememberPasswordCheck">
+                                    Remember password
+                                </label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                                    [disabled]="!loginForm.form.valid">Sign
+                                    in</button>
+                            </div>
+                            <br>
+                            <div class="text-center w-100">
+                                <p class="text-muted font-weight-bold">Don't have an account? <a href="register"
+                                        class="text-primary ml-2"> Register here</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

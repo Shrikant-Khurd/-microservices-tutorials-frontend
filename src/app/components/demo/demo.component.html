@@ -1,0 +1,74 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center  fw-light fs-4">Add Product</h5>
+                        <hr>
+                        <form [formGroup]="addCategoryForm" (ngSubmit)="addCategory()">
+
+                            <div class="form mb-3">
+                                <label>Category Name</label>
+                                <input type="text" class="form-control" id="floatingInput" name="categoryName"
+                                    formControlName="categoryName">
+                                <p class="error " style="color: red;"
+                                    *ngIf="addCategoryForm.controls['categoryName'].hasError('required') && addCategoryForm.controls['categoryName'].touched">
+                                    Category name is required</p>
+
+                            </div>
+                            <br>
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                                    [disabled]="!addCategoryForm.valid">Add Category</button>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold"> <a
+                                        href="products"></a> BACK</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+
+
+<div class="container">
+    <br><br>
+    <table style="width:100%">
+        <tr style="background-color:   rgb(238, 205, 20);color: black;">
+            <th>Category name</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>dhdhd</td>
+            <td>dgdsgg</td>
+        </tr>
+        <div *ngFor="let p of categories">
+
+            <tr>
+                <td> {{p.categoryName}} </td>
+                <td>
+
+                    <button (click)="editCategory(p.categoryId)" class="btn btn-primary">
+                        EDIT
+                    </button>
+                    <button (click)="deleteCategory(p.categoryId)" class="btn btn-primary">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        </div>
+
+    </table>
+
+
+</div>

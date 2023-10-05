@@ -1,0 +1,14 @@
+$bgcolor: rgb(190, 12, 244);
+$textcolor: white;
+$fontsize: 18px;
+
+/* Use the variables */
+header {
+  background-color: $bgcolor;
+  color: $textcolor;
+  font-size: $fontsize;
+  text-align: center;
+  height: 70px;
+  justify-content: center;
+  padding-top: 1em;
+} 

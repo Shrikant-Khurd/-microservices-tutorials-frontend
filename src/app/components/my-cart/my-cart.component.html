@@ -1,0 +1,165 @@
+<!-- <div class="container mt-5">
+    <a (click)="checkout()" class="btn btn-primary" style="margin: 5px;" [disabled]="userCart.length === 0">CHECKOUT</a>
+    <button (click)="checkout()" class="btn btn-primary" style="margin: 5px;"
+        [disabled]="!(userCart && userCart.length > 0)">CHECKOUT</button>
+    <button (click)="checkout()" class="btn btn-primary" style="margin: 5px;" [disabled]="userCart && userCart.length === 0">CHECKOUT</button>
+</div>
+
+<div class="container mt-2">
+    <div class="row  row-cols-md-4" *ngIf="userCart && userCart.length > 0; else emptyCartMessage">
+        <div *ngFor="let cartItem of userCart"> <div class="col mb-2">
+                <div class="card ">
+                   <div class="card-body" (click)="getProductDetails(cartItem.cartLineProduct.productId)">
+                        <h5 class="card-title">{{cartItem.cartLineProduct.productName}}</h5>
+                        <p class="card-text">{{cartItem.cartLineProduct.description}}</p>
+                        <p class="card-text">{{cartItem.cartLineProduct.category.categoryName}}</p>
+                        <p class="card-text">{{cartItem.cartLineProduct.price | currency:'INR'}}</p>
+                        <p class="card-text">Quantity : {{cartItem.quantity}}</p>
+                    </div>
+                    <a (click)="removeFromCart(cartItem.cartId)" class="btn btn-danger" style="margin: 5px;">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #emptyCartMessage>
+        <div class="text-center mt-4">
+            <p>{{msg}}</p>
+        </div>
+    </ng-template>
+</div> -->
+
+<div class="container p-3" *ngIf="id > 0;">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <h5 class="card-title">Subtotal: {{ calculateSubtotal() | currency:'INR' }}</h5>
+                </td>
+
+                <td class="justify-content-end ">
+                    <button (click)="checkout()" class="btn btn-warning" style="margin: 5px;"
+                        [disabled]="proceedToBuyDisabled">Proceed to Buy
+                        ({{totalQuantities()}}
+                        )</button>
+                </td>
+                <!-- <td class="justify-content-end">
+                    <button (click)="checkout()" class="btn btn-warning" style="margin: 5px;" *ngIf="totalQuantity!=0; else block23"
+                    [disabled]="false" >
+                        Proceed to Buy ({{totalQuantities()}})
+                    </button>
+                </td>
+                <td class="justify-content-end">
+                    <ng-template #block23>
+                        <button (click)="checkout()" class="btn btn-warning" style="margin: 5px;" 
+                        [disabled]="true" >
+                            Proceed to Buy ({{totalQuantities()}})
+                        </button>
+                      
+                    </ng-template>
+                </td> -->
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container mt-2">
+    <div class="card p-3" *ngIf="userCart && userCart.length > 0; else emptyCartMessage">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th *ngIf="userCart.length >1"></th>
+
+                            <th>Product Status</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Quantity</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cartItem of userCart"
+                           >
+
+                            <!-- <tr *ngFor="let cartItem of userCart" [ngClass]="{ 'disabled-row': !cartItem.cartSelected }"> -->
+                            <!-- <tr *ngFor="let cartItem of userCart" [ngClass]="{ 'disabled-row': cartItem.cartSelected }"> -->
+                            <td *ngIf="userCart.length >1">
+                                <div class="form-check">
+                                    <!-- <input mdbCheckbox class="form-check-input" type="checkbox" value=""  [(ngModel)]="cartItem.isSelected"
+                                        id="flexCheckDefault"   [checked]="true"/> -->
+
+                                    <input class="form-check-input" type="checkbox" [checked]="cartItem.cartSelected && cartItem.cartLineProduct.quantityInStock !== 0"
+                                        *ngIf="cartItem.cartLineProduct.quantityInStock !== 0 "
+                                        (change)="toggleCartItemSelection(cartItem)" />
+
+                                </div>
+
+                            </td>
+                            <td >
+
+                                <ng-container *ngIf="cartItem.cartLineProduct.quantityInStock > 0  else block3">
+                                    <p class="card-text text-success" style="display: inline-flex;">In stock </p>
+                                    <div style="width: 5px; display: inline-flex;"></div>
+
+                                    <p class="text-danger" *ngIf="cartItem.cartLineProduct.quantityInStock === 1"
+                                        style="display: inline-flex;">
+                                        only {{ cartItem.cartLineProduct.quantityInStock }} left in stock
+                                    </p>
+                                </ng-container>
+
+                                <ng-template #block3>
+                                    <p class="text-danger " >Currently unavailable</p>
+                                </ng-template>
+
+                            </td>
+                            <!-- <td>
+                                <p class="card-text" [ngStyle]="{ color: cartItem.textColor }">{{ cartItem.msg }}</p>
+                            </td> -->
+                            <td (click)="getProductDetails(cartItem.cartLineProduct.productId)"  [ngClass]="{ 'disabled-row': !cartItem.cartSelected }">
+                                {{cartItem.cartLineProduct.productName}}</td>
+                            <td  [ngClass]="{ 'disabled-row': !cartItem.cartSelected }">{{cartItem.cartLineProduct.description}}</td>
+                            <td  [ngClass]="{ 'disabled-row': !cartItem.cartSelected }">{{cartItem.cartLineProduct.category.mainCategory.categoryName}}</td>
+                            <td  [ngClass]="{ 'disabled-row': !cartItem.cartSelected }">{{cartItem.cartLineProduct.price | currency:'INR'}}</td>
+                            <td  [ngClass]="{ 'disabled-row': !cartItem.cartSelected }">
+                                <div class="quantity-controls">
+                                    <button (click)="decrementQuantity(cartItem)" class="btn btn-secondary"
+                                        [disabled]="cartItem.quantity==1 || cartItem.cartLineProduct.quantityInStock === 0"   >-</button>
+                                    <span class="selected-quantity">{{cartItem.quantity}}</span>
+                                    <button (click)="incrementQuantity(cartItem)" class="btn btn-secondary" [disabled]="cartItem.cartLineProduct.quantityInStock === 0">+</button>
+                                    <!-- [disabled]="cartItem.quantity==inStockQuantity">+</button> -->
+                                    <!-- Popover content -->
+                                    <div *ngIf="showPopover" class="popover m-2">
+                                        <p class="m-2"><i>
+                                                This seller has a limit of 5 per customer. To see if more are available
+                                                from another seller, go to the
+                                                product detail page.</i>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <!-- <a (click)="removeProduct(product.productId)" class="btn btn-danger">Remove</a> -->
+                                <!-- <a (click)="removeFromCart(cartItem.cartId)" class="btn btn-danger"
+                                    style="margin: 5px;" >Remove</a> -->
+                                <button (click)="removeFromCart(cartItem.cartId)" class="btn btn-danger"
+                                     style="margin: 5px;" >
+                                    Remove
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <ng-template #emptyCartMessage>
+        <div class="text-center mt-4">
+            <p>{{msg}}</p>
+        </div>
+    </ng-template>
+</div>
