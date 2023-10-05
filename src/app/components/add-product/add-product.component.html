@@ -1,0 +1,227 @@
+<!-- {{msg}}
+<form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+
+    
+    <input type="text" name="productName" formControlName="productName"> <br>
+    <input type="text" name="price" formControlName="price"><br>
+    <input type="submit" value="add Product" [disabled]="!addProductForm.valid">
+</form> -->
+
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center  fw-light fs-4">Add Product</h5>
+                        <hr>
+                        <form [formGroup]="addProductForm" (ngSubmit)="addProduct1()">
+
+                            <div class="form mb-3">
+                                <label>Product Name</label>
+                                <input type="text" class="form-control" id="floatingInput" name="productName"
+                                    formControlName="productName">
+                                <p class="error " style="color: red;"
+                                    *ngIf="addProductForm.controls['productName'].hasError('required') && addProductForm.controls['productName'].touched">
+                                    Product name is required</p>
+
+                            </div>
+                            <div class="form mb-3">
+                                <label>Product description</label>
+                                <input type="text" class="form-control" id="floatingInput" name="description"
+                                    formControlName="description">
+                                <p class="error " style="color: red;"
+                                    *ngIf="addProductForm.controls['description'].hasError('required') && addProductForm.controls['description'].touched">
+                                    Product description is required</p>
+
+                            </div>
+
+                            <div class="form mb-3">
+                                <label>Price</label>
+                                <input type="text" class="form-control" id="floatingInput" name="price"
+                                    formControlName="price">
+                                <p class="error " style="color: red;"
+                                    *ngIf="addProductForm.controls['price'].hasError('required') && addProductForm.controls['price'].touched">
+                                    Price is required</p>
+                            </div>
+                            <!-- <div>
+                                <label >Select Category</label>
+                                <select id="sort-by" class="form-select " style="margin: 5px;" formControlName="mainCategory" >
+                                    <option selected disabled hidden>Select Category</option>
+                                    <option  *ngFor="let cateogry of categories" [value]="cateogry.categoryId">  {{cateogry.categoryName}}</option>
+                                   
+                                </select>   
+                            </div> -->
+
+                            <div class="form mb-3">
+                                <label>Main Category:</label>
+                                <select class="form-select " style="margin: 5px;" formControlName="mainCategory"
+                                    [(ngModel)]="selectedMainCategory" (change)="onMainCategoryChange()">
+                                    <option *ngFor="let mainCategory of mainCategories"
+                                        [value]="mainCategory.categoryId">{{ mainCategory.categoryName }}</option>
+                                </select>
+                            </div>
+
+                            <div class="form mb-3"
+                                *ngIf="selectedMainCategory && subCategories && subCategories.length > 0">
+                                <label>Sub Category:</label>
+                                <select class="form-select " style="margin: 5px;" formControlName="subCategory"
+                                    [(ngModel)]="selectedSubCategory" (change)="onSubCategoryChange()">
+                                    <option *ngFor="let subCategory of subCategories" [value]="subCategory.categoryId">
+                                        {{ subCategory.categoryName }}</option>
+                                </select>
+                            </div>
+
+                            <div class="form mb-3"
+                                *ngIf="selectedSubCategory && secondaryCategories && secondaryCategories.length > 0 && subCategories.length > 0">
+                                <label>Secondary Category {{selectedSecondaryCategory}}:</label>
+                                <select class="form-select " style="margin: 5px;" formControlName="secondaryCategory"
+                                    [(ngModel)]="selectedSecondaryCategory">
+                                    <option *ngFor="let secondaryCategory of secondaryCategories"
+                                        [value]="secondaryCategory.categoryId">{{ secondaryCategory.categoryName }}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- <div class="form mb-3" *ngIf="selectedSecondaryCategory">
+                                <label>Size drop-down</label>
+                                <select class="form-select " style="margin: 5px;" formControlName="selectSizes"
+                                    [(ngModel)]="selSizeString" (change)="onSizeChange()">
+                                    <option *ngFor="let sizes of selectSizeD" [value]="sizes">{{sizes }} </option>
+                                </select>
+                            </div>
+                            <div *ngIf="selSizeString ">
+                                <label>Sizes:</label>
+                                <div>
+                                    <span class="btn btn-size m-1  border border-1" *ngFor="let size of sizeeee"
+                                        (click)="toggleSize(size)"
+                                        [ngClass]="{'selected-size': selectedSize.includes(size)}">
+                                        {{ size }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Quantity Stock:</label>
+                                <div>
+                                    <input type="text" class=" btn-size m-1 border border-1 d-inline w-25"
+                                        *ngFor="let pair of sizeQuantityPairs"
+                                        [disabled]="!selectedSize.includes(pair.size)" [placeholder]="pair.size"
+                                        [(ngModel)]="pair.quantity"
+                                        (ngModelChange)="onQuantityChange(pair.size, pair.quantity)"
+                                        formControlName="sizeQauntityPair">
+                                </div>
+                            </div> -->
+
+                            <!-- <div *ngIf="selSizeString">
+                                <label>Sizes:</label>
+                                <div>
+                                    <span class="btn btn-size m-1 border border-1" *ngFor="let size of sizeeee"
+                                        (click)="toggleSizeMap(size)"
+                                        [ngClass]="{'selected-size': selectedSize.includes(size)}">
+                                        {{ size }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label>Quantity Stock:</label>
+                                <div>
+                                    <div *ngFor="let pair of sizeQuantityPairs">
+                                        <input type="text" class="btn-size m-1 border border-1 d-inline w-25"
+                                            [disabled]="!selectedSize.includes(pair.size)" [placeholder]="pair.size"
+                                            [(ngModel)]="pair.quantity" formControlName="sizeQauntityPair">
+                                       
+                                    </div>
+
+                                    <div *ngFor="let size of sizeeee">
+                                        <input type="text" class="btn btn-size m-1 border border-1 d-inline w-25"
+                                            *ngIf="selectedSize.includes(size)" [placeholder]="size"
+                                            [(ngModel)]="sizeQuantityMap[size]">
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div *ngIf="selSizeString">
+                                <label>Sizes:</label>
+                                <div>
+                                    <span class="btn btn-size m-1 border border-1" *ngFor="let size of sizeeee"
+                                        (click)="toggleSize(size)"
+                                        [ngClass]="{'selected-size': selectedSize.includes(size)}">
+                                        {{ size }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Quantity Stock:</label>
+                                <div>
+                                    <input type="number" class="btn-size m-1 border border-1 d-inline w-25"
+                                        *ngFor="let pair of sizeQuantityPairs"
+                                        [disabled]="!selectedSize.includes(pair.size)" [placeholder]="pair.size"
+                                        [(ngModel)]="pair.quantity"
+                                        (ngModelChange)="onQuantityChange(pair.size, pair.quantity)"
+                                        formControlName="sizeQauntityPair">
+                                </div>
+                            </div> -->
+                           
+
+
+                            <!-- <div *ngIf="selSizeString">
+                                <label>Sizes:</label>
+                                <div>
+                                  <span class="btn btn-size m-1 border border-1" *ngFor="let size of sizeeee" (click)="toggleSizeMap(size)"
+                                    [ngClass]="{'selected-size': selectedSize.includes(size)}">
+                                    {{ size }}
+                                  </span>
+                                </div>
+                              </div>
+                              <div >
+                                <label>Quantity Stock:</label>
+                                <div>
+                                  <div class="d-flex align-items-center" *ngFor="let size of selectedSize">
+                                    <input type="number" class="btn btn-size m-1 border border-1 d-inline w-25"
+                                      [(ngModel)]="sizeQuantityMap[size]" [disabled]="!selectedSize.includes(size)"  [placeholder]="size">
+                                  </div>
+                                </div>
+                              </div> -->
+
+
+
+
+                            <!-- <div class="form mb-3">
+                                <label>Quantity Stock</label>
+                                <input type="number" class="form-control" id="floatingInput" name="quantityInStock"
+                                    formControlName="quantityInStock">
+                                <p class="error " style="color: red;"
+                                    *ngIf="addProductForm.controls['quantityInStock'].hasError('required') && addProductForm.controls['quantityInStock'].touched">
+                                    quantityInStock is required</p>
+                            </div> -->
+
+                            <div>
+                                <label for="image">Image:</label>
+                                <input type="file" id="image" class="form-control" (change)="onFileSelected($event)"
+                                    required>
+                            </div>
+                            <br>
+                            <div class="col-md">
+                                <img [src]="imageUrl" class="img-fluid rounded-start" alt="Selected Image"
+                                    *ngIf="imageUrl" />
+                            </div>
+                            <br>
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                                    [disabled]="!addProductForm.valid">Add Product</button>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold"> <a
+                                        href="products"></a> BACK</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

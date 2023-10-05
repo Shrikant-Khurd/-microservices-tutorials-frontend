@@ -1,0 +1,100 @@
+<app-header></app-header>
+<app-parent></app-parent>
+<app-nav></app-nav>
+<!-- pipe  -->
+<!-- {{name | convertSpaceTo:'-'}}
+{{ msg | uppercase}}
+<br>
+{{number | currency: 'INR'}} <br>
+{{todayDate | date : "dd/MM/YY"}} <br>
+{{todayDate | date : "short"}} <br>
+{{number | percent}} <br> -->
+<!-- decimal pipe -->
+<!-- {{number | number:'5.2-3'}} -->
+<div class="container">
+    <!-- <app-product></app-product> -->
+    <!-- Intepolation Binding -->
+   <!-- {{ title }}
+    <br>
+    {{msg}}
+
+    {{10+20}}<br>
+
+    {{title+" "+msg}}<br>
+
+    {{getMsg()}}<br> -->
+
+
+    <!-- property Binding -->
+    <!-- <h1 innerText="{{msg}}"></h1>
+
+    <img [src]='url'>
+
+    <h1 [innerText]="msg"></h1>
+
+    <input type="text" [value]="title"> -->
+
+
+
+    <!-- Event data Binding -->
+
+    <!-- <button (click)="sayHello()">sayHello</button> -->
+
+    <!-- Two way Data Binding (imp using in form creation)-->
+   <!-- <input type="text" [(ngModel)]="str">{{str}}
+
+    <br>  -->
+    <!-- directive Angular -->
+    <!-- built-in directives ngIf else ngFor ngSwitch -->
+    <!-- Structural directive example ngFor-->
+    <!-- <div *ngIf="fruits.length!=0; else block2">
+
+        <ul *ngFor="let fruit of fruits; let i=index">
+            <li>{{i+1}} {{fruit}}</li>
+        </ul>
+    </div>
+    <ng-template #block2>
+        Frutis array is empty
+    </ng-template> -->
+
+    <!-- Structural directive example *ngIf used for conditional rendering-->
+    <!-- <p *ngIf="!flag; else block1">
+        this is example Structural directive of *ngIf
+    </p>
+
+    <ng-template #block1>
+        <p>
+            This para is for else condition...
+        </p>
+    </ng-template> -->
+
+    <!-- ngIf then else -->
+    <!-- <h1>ngIf then else</h1>
+
+    <p *ngIf="flag; then thenBlock else elseBlock">
+        this is not rendered
+    </p>
+    <ng-template #thenBlock>
+        <p>ShowMe is checked Using thenBLock</p>
+    </ng-template>
+    <ng-template #elseBlock>
+        <p>ShowMe is checked Using elseBLock</p>
+    </ng-template> -->
+
+
+    <!-- switch case  -->
+    <!-- <div class="card-body">
+        intput string: <input type="text" [(ngModel)]="num">
+        <div [ngSwitch]="num">
+
+            <div *ngSwitchCase="1">One</div>
+            <div *ngSwitchCase="2">Two</div>
+            <div *ngSwitchCase="3">Three</div>
+            <div *ngSwitchCase="4">Four</div>
+            <div *ngSwitchCase="5">Five</div>
+            <div *ngSwitchDefault>This is Default</div>
+        </div>
+    </div> -->
+
+</div>
+<app-footer></app-footer>

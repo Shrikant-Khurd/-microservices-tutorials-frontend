@@ -1,0 +1,142 @@
+<div class="container mt-5">
+  <div class="card p-3">
+    <div class="row">
+      <div class="col-6">
+        <form [formGroup]="addProductForm" (ngSubmit)="placeOrder()">
+          <!-- <p>{{demo}}</p> -->
+          <div class="mb-3">
+            <label for="shippingAddressId" class="form-label">Select Address:</label>
+            <select id="sort-by" class="form-select" formControlName="shippingAddress">
+              <option selected disabled hidden>Select Address</option>
+              <option *ngFor="let address of sortedAddresses" [value]="address.id">
+                {{address.street}}, {{address.city}}, {{address.state}} {{address.zipCode}}, {{address.country}}
+              </option>
+            </select>
+          </div>
+
+          <div align="right">
+            <button type="submit" class="btn btn-primary">Place Order</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-6">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th *ngIf="productDetails.length > 1">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of productDetails">
+              <td>{{product.productName}}</td>
+              <td>{{product.price | currency:'INR'}}</td>
+              <td>
+                <div class="quantity-controls">
+                  <button (click)="decrementQuantity(product)" class="btn btn-secondary"
+                    [disabled]="product.quantity==1">-</button>
+                  <span class="selected-quantity">{{product.quantity}}</span>
+                  <button (click)="incrementQuantity(product)" class="btn btn-secondary"
+                  [disabled]="product.quantity === 5">+</button>
+                  
+                </div>
+              </td>
+              <td>{{getCalculatedTotal(product.productId, product.price) | currency:'INR'}}</td>
+              <td *ngIf="productDetails.length > 1">
+                <a (click)="removeProduct(product.productId)" class="btn btn-danger">Remove</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Total</td>
+              <td><b>{{getCalculatedGrandTotal() | currency:'INR'}}</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 
+<div class="container mt-5">
+  <div class="card p-3">
+    <div class="row">
+      <div *ngIf="productDetails.length == 0">  </div>
+      <div class="col-6">
+
+        <form [formGroup]="addProductForm" (ngSubmit)="placeOrder()">
+          <div class="mb-3">
+            <label for="shippingAddressId" class="form-label">Select Address:</label>
+            <select id="sort-by" class="form-select " style="margin: 5px;" formControlName="shippingAddressId">
+              <option selected disabled hidden>Select Address</option>
+              <option *ngFor="let address of sortedAddresses" [value]="address.id"> {{address.street}},
+                {{address.city}},
+                {{address.state}} {{address.zipCode}}, {{address.country}} </option>
+
+            </select>
+
+          </div>
+
+          <div align="right">
+            <button type="submit" class="btn btn-primary" color="primary">Place Order</button>
+          </div>
+        </form>
+
+      </div>
+      <div class="col-6">
+        <table class="table">
+          <thead class="thead">
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Quantity</th>
+
+              <th>Quantity+total</th>
+              <th>Total</th>
+              <th *ngIf="productDetails.length > 1">Remove</th>
+            </tr>
+          </thead>
+          <tbody class="tbody">
+            <tr *ngFor="let product of productDetails">
+              <td>{{product.productName}}</td>
+              <td>{{product.price}}</td>
+              <td>{{product.quantity}}</td>
+              <td>
+                <div class="quantity-controls">
+                  <button (click)="decrementQuantity(product)" class="btn btn-secondary"
+                    [disabled]="product.quantity==1">-</button>
+                  <span class="selected-quantity">{{product.quantity}}</span>
+                  <button (click)="incrementQuantity(product)" class="btn btn-secondary">+</button>
+                </div>
+              </td>
+
+              <td>
+                {{getCalculatedTotal(product.productId, product.price)}}
+              </td>
+              <td *ngIf="productDetails.length > 1">
+                <a (click)="removeProduct(product.productId)" class="btn btn-danger" style="margin: 5px;">Remove</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total</td>
+              <td><b> {{getCalculatedGrandTotal()}}</b> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
